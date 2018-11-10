@@ -1,4 +1,4 @@
-package ie.conor.ecommerce.item;
+package ch.makery.address.model;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-
+/**
+ * Model class for a Person.
+ *
+ * @author Marco Jakob
+ */
 public class Product{
 
     private final StringProperty productName;

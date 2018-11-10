@@ -1,4 +1,4 @@
-package ie.conor.ecommerce.view;
+package ch.makery.address.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,23 +19,23 @@ import javafx.stage.Stage;
 import java.awt.Button;
 import java.io.IOException;
 
-import ie.conor.ecommerce.item.Product;
+import ch.makery.address.MainApp;
+import ch.makery.address.model.Product;
 
-
-public class LoginController {
+public class MainController {
 	
 	  private Stage primaryStage;
 	    private BorderPane rootLayout;
 	    
 	    /**
-	     * The data as an observable list of Products
+	     * The data as an observable list of Persons.
 	     */
 	    private ObservableList<Product> productData = FXCollections.observableArrayList();
 
 	    /**
 	     * Constructor
 	     */
-	    public LoginController() {
+	    public MainController() {
 	        // Add some sample data
 	        productData.add(new Product("Apple", 15));
 	        productData.add(new Product("Banana" ,20));
@@ -148,7 +148,7 @@ public class LoginController {
 	        try {
 	            // Load root layout from fxml file.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(LoginController.class.getResource("view/RootLayout.fxml"));
+	            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
 	            rootLayout = (BorderPane) loader.load();
 
 	            // Show the scene containing the root layout.
@@ -167,7 +167,7 @@ public class LoginController {
 	        try {
 	            // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(LoginController.class.getResource("view/PersonOverview.fxml"));
+	            loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
 	            AnchorPane personOverview = (AnchorPane) loader.load();
 
 	            // Set person overview into the center of root layout.
@@ -194,7 +194,7 @@ public class LoginController {
 	        try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(LoginController.class.getResource("view/PersonEditDialog.fxml"));
+	            loader.setLocation(MainApp.class.getResource("view/PersonEditDialog.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
