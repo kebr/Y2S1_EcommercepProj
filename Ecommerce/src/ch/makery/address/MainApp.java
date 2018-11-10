@@ -3,12 +3,10 @@ package ch.makery.address;
 import ch.makery.address.model.Product;
 import java.io.IOException;
 
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -16,8 +14,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ch.makery.address.view.PersonEditDialogController;
 import ch.makery.address.view.PersonOverviewController;
-import ch.makery.address.view.UserOverviewController;
-
 
 public class MainApp extends Application {
 
@@ -34,11 +30,11 @@ public class MainApp extends Application {
      */
     public MainApp() {
         // Add some sample data
-        productData.add(new Product("Apple", 15));
-        productData.add(new Product("Banana" ,20));
-        productData.add(new Product("Orange", 350));
+        productData.add(new Product("Apple", 2));
+        productData.add(new Product("Banana", 4));
+        productData.add(new Product("Orange", 3));
         productData.add(new Product("Cucumber", 5));
-       
+      
            }
 
     /**
@@ -49,60 +45,57 @@ public class MainApp extends Application {
         return productData;
     }
 
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("Conor's Retail Store");
+
+        initRootLayout();
+
+        showPersonOverview();
+    }
+
+    /**
+     * Initializes the root layout.
+     */
+    public void initRootLayout() {
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+            rootLayout = (BorderPane) loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Shows the person overview inside the root layout.
+     */
+    public void showPersonOverview() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(personOverview);
+
+            // Give the controller access to the main app.
+            PersonOverviewController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
-	
-    	@Override
-    	public void start(Stage primaryStage) {
-    		this.primaryStage = primaryStage;
-    		this.primaryStage.setTitle("AddressApp");
-
-    		initRootLayout();
-
-    		showPersonOverview();
-}
-
-		/**
- 		* Initializes the root layout.
- 		*/
-		public void initRootLayout() {
-    try {
-        // Load root layout from fxml file.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("/view/RootLayout.fxml"));
-        rootLayout = (BorderPane) loader.load();
-
-        //hello world
-        
-        // Show the scene containing the root layout.
-        Scene scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-
-			/**
- 		* Shows the person overview inside the root layout.
- 	*/
-			public void showPersonOverview() {
-    try {
-        // Load person overview.
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource("/view/PersonOverview.fxml"));
-        AnchorPane personOverview = (AnchorPane) loader.load();
-
-        // Set person overview into the center of root layout.
-        rootLayout.setCenter(personOverview);
-
-        // Give the controller access to the main app.
-        PersonOverviewController controller = loader.getController();
-        controller.setMainApp(this);
-
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-			}
     /**
      * Opens a dialog to edit details for the specified person. If the user
      * clicks OK, the changes are saved into the provided person object and true
@@ -140,9 +133,6 @@ public class MainApp extends Application {
             return false;
         }
     }
-    
-    
-    
 
     /**
      * Returns the main stage.
@@ -151,8 +141,6 @@ public class MainApp extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-    
-
 
     public static void main(String[] args) {
         launch(args);
