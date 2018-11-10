@@ -21,12 +21,8 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
     
     /*
-     * 
-     * hello conor
-     * 
-     * 
+     * test branch kecin
      */
-    
     
     /**
      * The data as an observable list of Persons.
