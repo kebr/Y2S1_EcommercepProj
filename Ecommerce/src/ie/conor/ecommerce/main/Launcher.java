@@ -105,7 +105,7 @@ public class Launcher extends Application {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Launcher.class.getResource("/Ecommerce/src/ie/conor/ecommerce/view/Admin.fxml"));
+            loader.setLocation(Launcher.class.getResource("/ie/conor/ecommerce/view/Admin.fxml"));
             AnchorPane personOverview = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.

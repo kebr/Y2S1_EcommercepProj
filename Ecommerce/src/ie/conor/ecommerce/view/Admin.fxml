@@ -60,7 +60,7 @@
                      </children>
                   </GridPane>
                   <ButtonBar layoutX="54.0" layoutY="250.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                <Button layoutX="5.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleNewPerson" prefHeight="25.0" prefWidth="57.0" text="Create" />
+                <Button layoutX="5.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Create" />
                   <Button layoutX="274.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleDeleteProduct" text="Delete" />
                   <Button layoutX="76.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Edit" />
                </children>
