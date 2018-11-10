@@ -68,7 +68,7 @@ public class LoginController {
 		    	if (userLoginCheck(txtUserName, txtPassword)) {
 		    		if(txtUserName.getText() == "admin") {
 		    			
-		    			mainApp.showAdminScreen();
+		    		
 		    		}
 		    		
 		    	
@@ -112,6 +112,11 @@ public class LoginController {
 	    		}else if(txtUsername.getText().equals("user") && txtPassword.getText().equals("user")) {
 	    			System.out.println("Login SUCCESS for user");
 	    			lblStatus.setText("login SUCCESS");
+	    			
+	    			
+	    			mainApp.showUserScreen();
+	    			
+	    			
 	    			return true;
 	    		} { 
 	    			System.out.println("Login FAILED for user"); 

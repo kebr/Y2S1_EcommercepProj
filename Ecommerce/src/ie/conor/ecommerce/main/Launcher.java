@@ -4,6 +4,7 @@ import ie.conor.ecommerce.item.Product;
 import ie.conor.ecommerce.view.AdminController;
 import ie.conor.ecommerce.view.EditProductController;
 import ie.conor.ecommerce.view.LoginController;
+import ie.conor.ecommerce.view.UserController;
 
 import java.io.IOException;
 
@@ -121,16 +122,35 @@ public class Launcher extends Application {
     }
     
     
+    public void showUserScreen() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Launcher.class.getResource("/ie/conor/ecommerce/view/User.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(personOverview);
+
+            // Give the controller access to the main app.
+            UserController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public boolean showEditProduct(Product product) {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Launcher.class.getResource("view/PersonEditDialog.fxml"));
+            loader.setLocation(Launcher.class.getResource("/Ecommerce/src/ie/conor/ecommerce/view/EditProduct.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
+            dialogStage.setTitle("Edit Product");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
