@@ -1,198 +1,134 @@
 package ie.conor.ecommerce.view;
 
-import java.io.IOException;
-
-
-
+import ie.conor.ecommerce.item.Product;
+import ie.conor.ecommerce.main.Launcher;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
-
 import javafx.fxml.FXMLLoader;
-
-import javafx.scene.Node;
-
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.awt.Button;
 
-
-/**
-
- * 
-
- * @author joedaly
-
- * @date October 2018
-
- *
-
- */
 
 public class LoginController {
+	private Launcher mainApp;
+	  private Stage primaryStage;
+	    private BorderPane rootLayout;
+	    
+	    /**
+	     * The data as an observable list of Persons.
+	     */
+	    private ObservableList<Product> productData = FXCollections.observableArrayList();
+
+	    /**
+	     * Constructor
+	     */
+	    public LoginController() {
+	        // Add some sample data
+	        productData.add(new Product("Apple", 15));
+	        productData.add(new Product("Banana" ,20));
+	        productData.add(new Product("Orange", 350));
+	        productData.add(new Product("Cucumber", 5));
+	       
+	           }
+	    
+	    
+	    
+	    @FXML
+		private Label lblStatus;
+
+		@FXML
+		private TextField txtUserName;
+
+		@FXML
+		private TextField txtPassword;
+		
+		@FXML
+		private Button ExitButton;
+	    @FXML
+	    private TextField txtFname;
+	    @FXML
+	    private TextField txtLname;
+	    @FXML
+	    private Label txtFeedback;
+		
+		
+		  public void Login(ActionEvent event) throws Exception {
+				
+		    	//check if the user has put in the correct admin username and password
+		    	if (userLoginCheck(txtUserName, txtPassword)) {
+					/*txtFeedback.setText("Admin Login Success");
+					Stage dialogStage = new Stage();	
+					Parent root = FXMLLoader.load(getClass().getResource("view/PersonOverview.fxml"));
+					Scene scene = new Scene(root,1000,500);
+					dialogStage.setScene(scene);
+					dialogStage.show();*/
+					
+					}	
+		    	
+		    	//if the user doesnt match the admin username and password
+		    	//try to match with the customer username and password
+		    	
+					else if (userLoginCheck(txtUserName, txtPassword)) {
+						txtFeedback.setText("User Login Success");
+						Stage dialogStage = new Stage();	
+						Parent root = FXMLLoader.load(getClass().getResource("/UserOverviewController.fxml"));
+						Scene scene = new Scene(root,1000,500);
+						dialogStage.setScene(scene);
+						dialogStage.show();
+					
+					} 
+		    			//else they will get a pop up saying incorrect username and password
+						else {
+							Alert alert = new Alert(AlertType.WARNING);
+							alert.setTitle("Incorect Username & Password");
+							alert.setHeaderText("Incorect Username & Password");
+							alert.setContentText("Please enter a different Username & Password");
+							alert.showAndWait();
+							}
+					}
+		  
+		  private boolean userLoginCheck(TextField txtUsername, TextField txtPassword){
+	    		if(txtUsername.getText().equals("admin") && txtPassword.getText().equals("admin")) {
+	    			System.out.println("Login SUCCESS for admin");
+	    			lblStatus.setText("login SUCCESS");
+	    			
+	    			
+	    			
+	    			
+	    			return true;
+	    		}else if(txtUsername.getText().equals("user") && txtPassword.getText().equals("user")) {
+	    			System.out.println("Login SUCCESS for user");
+	    			lblStatus.setText("login SUCCESS");
+	    			return true;
+	    		} { 
+	    			System.out.println("Login FAILED for user"); 
+	    			lblStatus.setText("login FAILED");
+	    		return false;	
+	    		}
+	    		}
+
+
+	    		/**
+	    		 	*userLoginCheck checks if the required username and password is given  
+	    		 	*if the details are valid the user will be brought to the customer screen
+	    		 */
+	    	
+	    		 public void setMainApp(Launcher mainApp) {
+	    		        this.mainApp = mainApp;
 
-@FXML
+	    		        // Add observable list data to the table
+	    		       // productTable.setItems(mainApp.getProductData());
+	    		    }
 
-private TextField userName;
 
-@FXML
-
-private TextField password;
-
-@FXML
-
-private Label message;
-
-Stage dialogStage = new Stage();  //Because dialogStage and scene are instance variables of the class,
-
-    Scene scene;                               // they are available to all methods without being passed to them.
-
-                                                         // They exist while the LoginController object exists
-
-    
-
-    /**
-
-* handleLoginBtn responds to the login button being pressed on the login scene
-
-* call checkLogin to check if the login details are correct.
-
-* if correct:
-
-* identifies the Source for the event (login scene)
-
-* identifies the Stage(window) in which the Source eminated.
-
-* closes that Stage
-
-* opens the menu scene and sets it to the dialogStage
-
-* if incorrect:
-
-* displays a message "Invalid"
-
-* 
-
-* @param e  ActionEvent - back button pressed event
-
-*/
-
-public void handleLoginBtn(ActionEvent e){
-
-if(checkLogin(userName,	password)){  //checkLogin returns true if userName and password are correct
-
-message.setText("");
-
-            Node node = (Node)e.getSource();
-
-            dialogStage = (Stage) node.getScene().getWindow();
-
-            dialogStage.close();
-
-            try {
-
-scene = new Scene(FXMLLoader.load(getClass().getResource("Menu.fxml")));
-
-} catch (IOException e1) {
-
-// TODO Auto-generated catch block
-
-e1.printStackTrace();
-
-}
-
-            dialogStage.setScene(scene);
-
-            dialogStage.show();
-
-}
-
-else{
-
-message.setText("Invalid");
-
-}
-
-}
-
-/**
-
-* handleBackBtn responds to the back button being pressed on the simple menu scene
-
-* identifies the Source for the event (menu scene)
-
-* identifies the Stage(window) in which the Source eminated.
-
-* closes that Stage
-
-* opens the Login scene and sets it to the dialogStage
-
-* 
-
-* @param e  ActionEvent - back button pressed event
-
-*/
-
-public void handleBackBtn(ActionEvent e){
-
-            Node node = (Node)e.getSource();
-
-            dialogStage = (Stage) node.getScene().getWindow();
-
-            dialogStage.close();
-
-            try {
-
-scene = new Scene(FXMLLoader.load(getClass().getResource("/Ecommerce/src/ie/conor/ecommerce/view/Login.fxml")));
-
-} catch (IOException e1) {
-
-// TODO Auto-generated catch block
-
-e1.printStackTrace();
-
-}
-
-            dialogStage.setScene(scene);
-
-            dialogStage.show();
-
-}
-
-/**
-
-*checkLogin checks that the userName and password are valid
-
-*
-
-* @param username - username entered by the user on the Login scene
-
-* @param password - password entered by the user on the Login scene
-
-* @return true if valid password, otherwise false
-
-*/
-
-private boolean checkLogin(TextField username,	TextField password){
-
-//very simplistic static username/password check implemented here
-
-//usernames and passwords should be stored and searched for a match.
-
-//typically passwords would be encrypted in the stored file
-
-if(username.getText().equals("Joe") && password.getText().equals("1234"))
-
-return true;
-
-return false;
-
-
-
-}
-
-}
-
+	    		}
