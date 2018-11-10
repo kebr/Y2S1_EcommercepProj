@@ -1,9 +1,12 @@
 package ie.conor.ecommerce.main;
 
 import ie.conor.ecommerce.item.Product;
+import ie.conor.ecommerce.view.AdminController;
+import ie.conor.ecommerce.view.EditProductController;
 import ie.conor.ecommerce.view.LoginController;
 
 import java.io.IOException;
+
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -95,6 +98,72 @@ public class Launcher extends Application {
             e.printStackTrace();
         }
     }
+    
+    
+    
+    public void showAdminScreen() {
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Launcher.class.getResource("/Ecommerce/src/ie/conor/ecommerce/view/Admin.fxml"));
+            AnchorPane personOverview = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(personOverview);
+
+            // Give the controller access to the main app.
+            AdminController controller = loader.getController();
+            controller.setMainApp(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public boolean showEditProduct(Product product) {
+        try {
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Launcher.class.getResource("view/PersonEditDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Person");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            EditProductController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setPerson(product);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * Opens a dialog to edit details for the specified person. If the user

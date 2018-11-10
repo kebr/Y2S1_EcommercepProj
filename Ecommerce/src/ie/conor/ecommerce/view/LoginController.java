@@ -66,13 +66,12 @@ public class LoginController {
 				
 		    	//check if the user has put in the correct admin username and password
 		    	if (userLoginCheck(txtUserName, txtPassword)) {
-					/*txtFeedback.setText("Admin Login Success");
-					Stage dialogStage = new Stage();	
-					Parent root = FXMLLoader.load(getClass().getResource("view/PersonOverview.fxml"));
-					Scene scene = new Scene(root,1000,500);
-					dialogStage.setScene(scene);
-					dialogStage.show();*/
-					
+		    		if(txtUserName.getText() == "admin") {
+		    			
+		    			mainApp.showAdminScreen();
+		    		}
+		    		
+		    	
 					}	
 		    	
 		    	//if the user doesnt match the admin username and password
@@ -102,10 +101,14 @@ public class LoginController {
 	    			System.out.println("Login SUCCESS for admin");
 	    			lblStatus.setText("login SUCCESS");
 	    			
+	    			mainApp.showAdminScreen();
 	    			
 	    			
 	    			
 	    			return true;
+	    			
+	    			
+	    			
 	    		}else if(txtUsername.getText().equals("user") && txtPassword.getText().equals("user")) {
 	    			System.out.println("Login SUCCESS for user");
 	    			lblStatus.setText("login SUCCESS");
@@ -127,7 +130,7 @@ public class LoginController {
 	    		        this.mainApp = mainApp;
 
 	    		        // Add observable list data to the table
-	    		       // productTable.setItems(mainApp.getProductData());
+	    		       //productTable.setItems(mainApp.getProductData());
 	    		    }
 
 
