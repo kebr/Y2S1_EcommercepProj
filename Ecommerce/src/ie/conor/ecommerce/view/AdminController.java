@@ -7,7 +7,7 @@
  * - METHOD DESCRIPTION
  * 
  */
-package ie.conor.view;
+package ie.conor.ecommerce.view;
 
 public class AdminController {
 

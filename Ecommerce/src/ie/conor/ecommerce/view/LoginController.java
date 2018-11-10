@@ -1,4 +1,4 @@
-package ie.conor.view;
+package ie.conor.ecommerce.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.awt.Button;
 import java.io.IOException;
 
-import ie.conor.item.Product;
+import ie.conor.ecommerce.item.Product;
 
 
 public class LoginController {

@@ -1,4 +1,4 @@
-package ie.conor.item;
+package ie.conor.ecommerce.item;
 
 import java.time.LocalDate;
 
